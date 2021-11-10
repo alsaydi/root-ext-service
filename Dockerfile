@@ -1,3 +1,4 @@
+#https://cloud.google.com/run/docs/quickstarts/build-and-deploy/python
 FROM python:3.9-slim
 
 # Allow statements and log messages to immediately appear in the Knative logs

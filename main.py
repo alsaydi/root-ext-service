@@ -37,6 +37,7 @@ def extract_root(word):
         logging.debug("Possible root: %s", possible_root)
         alt_spellings = permute_alternate_spelling(possible_root)
         logging.debug("Alternate spellings: %s", alt_spellings)
+        alt_spellings.add(word)
         roots = set()
         for alt_spelling in alt_spellings:
             logging.debug("Extrating root from alternate spelling: %s", alt_spelling)
@@ -91,7 +92,7 @@ def permute_alternate_spelling(word):
                 new_words.append(existing_word + alt_spelling)
         words = new_words
 
-    return words
+    return set(words)
 
 if __name__ == '__main__':
     logging.info('Starting server...')
