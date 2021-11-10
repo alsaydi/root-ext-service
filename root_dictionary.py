@@ -1,18 +1,27 @@
 import sys
 from os import system
+import logging
 
 class RootDictionary:
     WORD_ROOT_SEPARATOR = '#'
     def __init__(self, file_name):
-        print('Initializing dictionary from file: ' + file_name, file=sys.stderr)
+        logging.info('Initializing dictionary from file: %s', file_name)
         self.file_name = file_name
         self.lines = self.__read_file__()
         self.word_root_dictionary = self.__build_word_root_dictionary__()
+        self.roots = self.word_root_dictionary.values()
 
     def get_all_possible_roots(self, word):
+        result_set = set()
         if word in self.word_root_dictionary:
-            return self.word_root_dictionary[word]
-        return None
+           result_set = self.word_root_dictionary[word]
+
+        if word in self.roots:
+            result_set.add(word)
+
+        if len(result_set) == 0:
+            logging.info('No roots found for word: %s ', word)
+        return result_set
 
     def __read_file__(self):
         try:
@@ -39,7 +48,6 @@ class RootDictionary:
             else:
                 word_root_dictionary[word] = set([root])
         return word_root_dictionary
-
 
 if __name__ == '__main__':
     print('This is a module for building a dictionary of word roots.')

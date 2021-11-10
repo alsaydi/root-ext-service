@@ -1,2 +1,3 @@
 .pyenv/
+pyenv/
 __pycache__/
