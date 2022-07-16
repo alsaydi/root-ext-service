@@ -8,6 +8,7 @@ from root_dictionary import RootDictionary
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 root_dictionary = RootDictionary('data/word-root-table.txt')
 @app.route('/<word>')
 def index(word):
