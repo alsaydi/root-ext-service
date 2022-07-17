@@ -1,4 +1,3 @@
-import sys
 from os import system
 import logging
 
@@ -11,7 +10,7 @@ class RootDictionary:
         self.word_root_dictionary = self.__build_word_root_dictionary__()
         self.roots = self.word_root_dictionary.values()
 
-    def get_all_possible_roots(self, word):
+    def get_all_possible_roots(self, word) -> set:
         result_set = set()
         if word in self.word_root_dictionary:
            result_set = self.word_root_dictionary[word]
