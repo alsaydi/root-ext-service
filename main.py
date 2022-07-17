@@ -16,7 +16,7 @@ def index(word):
     if not word:
         return make_response('ينبغي إرسال كلمة لإستخراج جذرها.', 400)
 
-    if len(word) > 40:
+    if len(word) > 50:
         return make_response('الكلمة لا تبدو صحيحة', 400)
 
     roots = extract_root(word)
