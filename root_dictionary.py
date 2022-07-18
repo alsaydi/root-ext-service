@@ -3,6 +3,7 @@ import logging
 
 class RootDictionary:
     WORD_ROOT_SEPARATOR = '#'
+    MULTI_ROOT_SEPARATOR = ","
     def __init__(self, file_name):
         logging.info('Initializing dictionary from file: %s', file_name)
         self.word_root_dictionary = self.__build_word_root_dictionary__(self.__read_file__(file_name))
@@ -43,7 +44,7 @@ class RootDictionary:
             if word in word_root_dictionary:
                 word_root_dictionary[word].add(root)
             else:
-                word_root_dictionary[word] = set([root])
+                word_root_dictionary[word] = set(filter(None,root.split(self.MULTI_ROOT_SEPARATOR)))
         return word_root_dictionary
 
 if __name__ == '__main__':

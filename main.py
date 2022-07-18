@@ -3,14 +3,16 @@ import re
 import logging
 from flask import Flask
 from flask.helpers import make_response
+from flask_cors import CORS
 from tashaphyne.stemming import ArabicLightStemmer
 from root_dictionary import RootDictionary
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:4200", "https://sarf.one"], methods=["GET"])
 app.config['JSON_AS_ASCII'] = False
 root_dictionary = RootDictionary('data/word-root-table.txt')
-@app.route('/<word>')
+@app.route('/root-ext/<word>')
 def index(word):
     logging.info("Request for word: %s", word)
     if not word:
