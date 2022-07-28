@@ -1,0 +1,10 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  root-ext-service:
+    build: .
+    ports:
+      - "8090:8090"
+  sarf:
+    build:  ../Arabic Program/sarf/sarf-web-service
+    ports:
+      - "8080:8080"
