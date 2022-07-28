@@ -18,9 +18,10 @@ def index(word):
     if not word:
         return make_response('ينبغي إرسال كلمة لإستخراج جذرها.', 400)
 
+    word = word.strip()
     if len(word) > 50:
         return make_response('الكلمة لا تبدو صحيحة', 400)
-
+    
     roots = extract_root(word)
     logging.info("Roots: %s", roots)
     if not roots:
@@ -124,6 +125,8 @@ def permute_alternate_spelling(word) -> set:
             for alt_spelling in alt_spellings:
                 new_words.append(existing_word + alt_spelling)
         words = new_words
+        if len(words) >= 100 :
+            break
 
     return set(words)
 
