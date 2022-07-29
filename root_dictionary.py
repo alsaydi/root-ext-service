@@ -6,7 +6,7 @@ class RootDictionary:
     MULTI_ROOT_SEPARATOR = ","
     def __init__(self, file_name):
         logging.info('Initializing dictionary from file: %s', file_name)
-        self.word_root_dictionary = self.__build_word_root_dictionary__(self.__read_file__(file_name))
+        self.word_root_dictionary = self.__build_word_root_dictionary__(file_name)
         self.roots = self.word_root_dictionary.values()
 
     def get_all_possible_roots(self, word) -> set:
@@ -21,30 +21,20 @@ class RootDictionary:
             logging.info('No root found for word: %s ', word)
         return result_set
 
-    def __read_file__(self, file_name):
-        try:
-            with open(file_name, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
-                return lines
-        except Exception as ex:
-            print(ex, file=system.stderr)
-        return []
-
-    def __build_word_root_dictionary__(self, lines) -> dict:
+    def __build_word_root_dictionary__(self, file_name) -> dict:
         word_root_dictionary = {}
-        for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-            parts = line.split(self.WORD_ROOT_SEPARATOR)
-            if len(parts) != 2:
-                continue
-            word = parts[0]
-            root = parts[1]
-            if word in word_root_dictionary:
-                word_root_dictionary[word].add(root)
-            else:
-                word_root_dictionary[word] = set(filter(None,root.split(self.MULTI_ROOT_SEPARATOR)))
+        with open(file_name, mode='r') as dict_file:
+            line = dict_file.readline()
+            while line:
+                line = line.strip()
+                parts = line.split(self.WORD_ROOT_SEPARATOR)
+                word = parts[0]
+                root = parts[1]
+                if word in word_root_dictionary:
+                    word_root_dictionary[word].add(root)
+                else:
+                    word_root_dictionary[word] = set(filter(None,root.split(self.MULTI_ROOT_SEPARATOR)))
+                line = dict_file.readline()
         return word_root_dictionary
 
 if __name__ == '__main__':
